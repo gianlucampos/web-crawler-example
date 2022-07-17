@@ -1,5 +1,6 @@
 package br.com.gianlucampos.webcrawler.config;
 
+import br.com.gianlucampos.webcrawler.util.LocationConstants;
 import javax.annotation.PostConstruct;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,17 +12,17 @@ public class SeleniumConfig {
 
     @PostConstruct
     void postConstruct() {
-        String path = System.getProperty("user.dir");
-//        String resourcesPath = "\\resources\\chromedriver.exe";
-        String resourcesPath = "/src/main/resources/chromedriver.exe";
-        System.setProperty("webdriver.chrome.driver", path.concat(resourcesPath));
+        System.setProperty("webdriver.chrome.driver", LocationConstants.CHROME_DRIVER);
     }
 
     @Bean
     public ChromeDriver driver() {
-        final var chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless");
-        return new ChromeDriver(chromeOptions);
+        final var options = new ChromeOptions();
+        options.addArguments("--start-maximized");
+        options.addArguments("--start-fullscreen");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--headless");
+        return new ChromeDriver(options);
     }
 
 

@@ -1,11 +1,14 @@
 package br.com.gianlucampos.webcrawler.controller;
 
+import br.com.gianlucampos.webcrawler.models.LoginCredentials;
 import br.com.gianlucampos.webcrawler.service.CrawlerService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +24,12 @@ public class CrawlerController {
         var words = service.scrapWords(word);
         System.out.println("Number of words finded: ".concat(String.valueOf(words.size())));
         return ResponseEntity.ok(words);
+    }
+
+    @PostMapping("/real-valor")
+    public ResponseEntity<Void> loginRealValor(@RequestBody LoginCredentials credentials) {
+        service.loginRealValor(credentials);
+        return ResponseEntity.accepted().build();
     }
 
 }
