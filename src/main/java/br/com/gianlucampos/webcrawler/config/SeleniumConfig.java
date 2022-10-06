@@ -17,12 +17,16 @@ public class SeleniumConfig {
 
     @Bean
     public ChromeDriver driver() {
-        final var options = new ChromeOptions();
-        options.addArguments("--start-maximized");
-        options.addArguments("--start-fullscreen");
-        options.addArguments("--window-size=1920,1080");
-        options.addArguments("--headless");
-        return new ChromeDriver(options);
+        try {
+            var options = new ChromeOptions();
+            options.addArguments("--start-maximized");
+            options.addArguments("--start-fullscreen");
+            options.addArguments("--window-size=1920,1080");
+            options.addArguments("--headless");
+            return new ChromeDriver(options);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
 
